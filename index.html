@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jon Chapman - Session & Editorial Hair</title>
+    <meta name="description" content="Jon Chapman - Session & Editorial Hair. Available in London, Cannes, Venice, and Berlin.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* -- VISUAL BACKGROUND -- */
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fade 30s infinite;
+        }
+        
+        @media (orientation: landscape) {
+            .slide:nth-child(6) {
+                background-position: center 15%;
+            }
+        }
+        
+        .slide:nth-child(1) { background-image: url('backghrund/01.jpg'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('backghrund/02.jpg'); animation-delay: 5s; }
+        .slide:nth-child(3) { background-image: url('backghrund/03.jpg'); animation-delay: 10s; }
+        .slide:nth-child(4) { background-image: url('backghrund/04.JPG'); animation-delay: 15s; }
+        .slide:nth-child(5) { background-image: url('backghrund/05.JPG'); animation-delay: 20s; }
+        .slide:nth-child(6) { background-image: url('backghrund/06.JPG'); animation-delay: 25s; }
+        
+        @keyframes fade {
+            0%      { opacity: 0; }
+            6.67%   { opacity: 1; }
+            16.67%  { opacity: 1; }
+            23.33%  { opacity: 0; }
+            100%    { opacity: 0; }
+        }
+        
+        /* Solid black cover that fades out to reveal slideshow */
+        .solid-black-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: 2;
+            opacity: 1;
+            transition: opacity 0.5s ease; /* Fast reset */
+        }
+        
+        body.slideshow-mode .solid-black-bg {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1) 0.8s; /* Delayed reveal */
+        }
+        
+        /* Subtle gradient footer mask for image legibility */
+        .footer-mask {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 2.5s ease;
+            pointer-events: none;
+        }
+        
+        body.slideshow-mode .footer-mask {
+            opacity: 1;
+        }
+
+        /* -- EXACT ORIGINAL TYPE LOCKUP (Positioned Higher) -- */
+        .content-overlay {
+            position: absolute;
+            top: 30%; /* Brought up by ~20% */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            
+            transition: transform 0.5s ease; /* Fast reset */
+        }
+        
+        body.slideshow-mode .content-overlay {
+            transform: translate(-50%, calc(-50% - 40px)); /* Slide up slightly as it fades */
+            pointer-events: none;
+            transition: transform 1.5s ease; /* Slow fade */
+        }
+        
+        .content-overlay > * {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        body.slideshow-mode .content-overlay .intro-title {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition-delay: 0s;
+        }
+        
+        body.slideshow-mode .content-overlay .subheading {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition-delay: 0.2s;
+        }
+        
+        body.slideshow-mode .content-overlay .locations {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition-delay: 0.4s;
+        }
+        
+        body.slideshow-mode .content-overlay .links-container {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition-delay: 0.6s;
+        }
+        
+        h1.intro-title {
+            font-family: 'Playfair Display', 'Bodoni MT', 'Times New Roman', serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        
+        .subheading {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        
+        .locations {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        
+        .links-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .links-container a {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        
+        .links-container a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #ffffff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        
+        .links-container a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .separator {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* -- FOOTER LOCKUP -- */
+        .footer-lockup {
+            position: absolute;
+            bottom: 25px; /* Lowered by roughly one typeface height */
+            left: 0;
+            width: 100%;
+            padding: 0 60px;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Fast hide when resetting */
+            pointer-events: none;
+        }
+        
+        body.slideshow-mode .footer-lockup {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition: opacity 2s ease 0.5s, transform 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s; /* Slow reveal */
+        }
+        
+        .footer-name {
+            font-family: 'Playfair Display', 'Bodoni MT', 'Times New Roman', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-decoration: none;
+            color: #ffffff;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-name:hover {
+            opacity: 0.7;
+        }
+
+        /* -- RESPONSIVE DESIGN -- */
+        @media (max-width: 900px) {
+            h1.intro-title {
+                font-size: 2.8rem;
+                letter-spacing: 1.5px;
+            }
+            .subheading {
+                font-size: 0.95rem;
+                letter-spacing: 2px;
+                margin-bottom: 40px;
+            }
+            .locations {
+                font-size: 0.75rem;
+            }
+            
+            .footer-lockup {
+                flex-direction: row; /* Force one line on iPad */
+                justify-content: space-between;
+                padding: 0 30px;
+                bottom: 25px; /* Lowered */
+            }
+            .footer-name {
+                font-size: 1.5rem;
+            }
+            .links-container {
+                gap: 15px;
+            }
+            .links-container a {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            /* Only stack on very narrow iPhones where they physically won't fit */
+            .footer-lockup {
+                flex-direction: column;
+                justify-content: center;
+                gap: 15px;
+                bottom: 25px;
+            }
+            .footer-name {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Background Slideshow -->
+        <div class="slideshow">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        
+        <!-- Solid Black Cover that fades out -->
+        <div class="solid-black-bg"></div>
+        <div class="footer-mask"></div>
+        
+        <!-- Exact Original Intro Lockup (Centered) -->
+        <div class="content-overlay">
+            <h1 class="intro-title">Jon Chapman</h1>
+            <div class="subheading">Session &amp; Editorial Hair</div>
+            
+            <div class="locations">
+                London &middot; Cannes &middot; Venice &middot; Berlin
+            </div>
+            
+            <div class="links-container">
+                <a href="https://www.instagram.com/jonchapman.sessions" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <span class="separator">|</span>
+                <a href="mailto:hello@hairbyjonchapman.com">Email</a>
+                <span class="separator">|</span>
+                <a href="tel:+447960008911">Contact</a>
+            </div>
+        </div>
+        
+        <!-- One-Line Footer Lockup (Brought up slightly) -->
+        <div class="footer-lockup">
+            <a href="#" class="footer-name" id="reset-intro">Jon Chapman</a>
+            <div class="links-container">
+                <a href="https://www.instagram.com/jonchapman.sessions" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <span class="separator">|</span>
+                <a href="mailto:hello@hairbyjonchapman.com">Email</a>
+                <span class="separator">|</span>
+                <a href="tel:+447960008911">Contact</a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let introTimeout;
+            let slideshowStartTimeout;
+            
+            const startIntroSequence = () => {
+                document.body.classList.remove('slideshow-mode');
+                clearTimeout(introTimeout);
+                clearTimeout(slideshowStartTimeout);
+                
+                // Pause slide animations during intro
+                const slides = document.querySelectorAll('.slide');
+                slides.forEach(slide => {
+                    slide.style.animation = 'none';
+                });
+                
+                // After 3.5 seconds, start the staggered fade out
+                introTimeout = setTimeout(() => {
+                    document.body.classList.add('slideshow-mode');
+                    
+                    // Start slides animation 0.8s later to match black bg fade out
+                    slideshowStartTimeout = setTimeout(() => {
+                        slides.forEach(slide => {
+                            void slide.offsetWidth; // trigger reflow
+                            slide.style.animation = null;
+                        });
+                    }, 800);
+                }, 3500);
+            };
+            
+            // Start automatically on load
+            startIntroSequence();
+            
+            // Reset intro when clicking Jon Chapman in footer
+            const resetBtn = document.getElementById('reset-intro');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    startIntroSequence();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
